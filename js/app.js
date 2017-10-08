@@ -57,12 +57,7 @@ function shuffle(array) {
 	$(liCards).click(function() {
 		let openCards = [];
 
-		// if ( (count < 2) && ($(this).hasClass("show")) === false ) {
-
-
-		// 	count++;
 			showCard();
-		// }
 	
 	});
 
