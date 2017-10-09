@@ -1,7 +1,10 @@
-const ulDeck = document.getElementsByClassName("deck");
-const liCards = document.getElementsByClassName("card");
-
-let cards = [
+let $deck = document.getElementsByClassName("deck"),
+ 	$card = document.getElementsByClassName("card"),
+ 	openedCards = [],
+ 	match = 0,
+ 	moves = 0,
+ 	$rating = $("i");
+	cards = [
     "fa fa-diamond",
     "fa fa-leaf",
     "fa fa-cube",
@@ -20,50 +23,50 @@ let cards = [
     "fa fa-bolt"
 ];
 
-function newBoard() {
-    let newDeck = '';
-
-    for (let i = 0; i < cards.length; i++) {
-        newDeck += '<li class="card">';
-        newDeck += '<i class="' + cards[i] + '"/></i>';
-    }
-    newDeck += '</li>';
-    $(ulDeck).append(newDeck);
-}
-
-cards = shuffle(cards);
-newBoard();
-
 // Shuffle function
 function shuffle(array) {
-    let currentIndex = cards.length,
+    let currentIndex = array.length,
         temporaryValue, randomIndex;
 
     while (currentIndex !== 0) {
         randomIndex = Math.floor(Math.random() * currentIndex);
         currentIndex -= 1;
-        temporaryValue = cards[currentIndex];
-        cards[currentIndex] = cards[randomIndex];
-        cards[randomIndex] = temporaryValue;
+        temporaryValue = array[currentIndex];
+        array[currentIndex] = array[randomIndex];
+        array[randomIndex] = temporaryValue;
     }
 
     return array;
 }
 
-	let guess1 = "";
-	let guess2 = "";
-	let count = 0;
 
-	$(liCards).click(function() {
-		let openCards = [];
+function newBoard() {
+	let shuffledCards = shuffle(cards);
+ 	match = 0;
+ 	moves = 0;
 
-			showCard();
-	
-	});
+    for (let i = 0; i < cards.length; i++) {
+            $($deck).append('<li class="card"><i class="' + cards[i] + '"></i></li>');
+    }
+    newBoard();
+}
 
-	function showCard() {
-		$(this).addClass("show");
-	}
+
+$("cards").click(function() {
+    if ((count < 2) && ($(this).hasClass("show")) === false) {
+
+        count++;
+        showCard();
+        matchCard();
+        alert(count);
+    }
+
+}, function showCard() {
+    $(this).addClass("show open");
+}, function matchCard() {
+    $(this).addClass("match");
+});
+
 
 
 
