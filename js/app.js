@@ -1,27 +1,35 @@
-let $deck = document.getElementsByClassName("deck"),
- 	$card = document.getElementsByClassName("card"),
- 	openedCards = [],
- 	match = 0,
- 	moves = 0,
- 	$rating = $("i");
-	cards = [
-    "fa fa-diamond",
-    "fa fa-leaf",
-    "fa fa-cube",
-    "fa fa-bomb",
-    "fa fa-bicycle",
-    "fa fa-anchor",
-    "fa fa-paper-plane-o",
-    "fa fa-bolt",
-    "fa fa-diamond",
-    "fa fa-leaf",
-    "fa fa-cube",
-    "fa fa-bomb",
-    "fa fa-bicycle",
-    "fa fa-anchor",
-    "fa fa-paper-plane-o",
-    "fa fa-bolt"
-];
+let cards = [
+        "fa fa-diamond",
+        "fa fa-leaf",
+        "fa fa-cube",
+        "fa fa-bomb",
+        "fa fa-bicycle",
+        "fa fa-anchor",
+        "fa fa-paper-plane-o",
+        "fa fa-bolt",
+        "fa fa-diamond",
+        "fa fa-leaf",
+        "fa fa-cube",
+        "fa fa-bomb",
+        "fa fa-bicycle",
+        "fa fa-anchor",
+        "fa fa-paper-plane-o",
+        "fa fa-bolt"
+    ],
+    openedCards = [],
+    $deck = $(".deck"),
+    $card = (".card"),
+    $scorePanel = $('#score-panel'),
+    $moves = $('.moves'),
+    $rating = $("i"),
+    delay = 500,
+    match = 0,
+    moves = 0,
+    amountOfCards = cards.length / 2,
+    threeStars = amountOfCards + 2,
+    twoStars = amountOfCards + 6,
+    oneStars = amountOfCards + 10;
+
 
 // Shuffle function
 function shuffle(array) {
@@ -39,34 +47,83 @@ function shuffle(array) {
     return array;
 }
 
-
+// Create the new Game
 function newBoard() {
-	let shuffledCards = shuffle(cards);
- 	match = 0;
- 	moves = 0;
+    let shuffledCards = shuffle(cards);
+    $deck.empty();
+    match = 0;
+    moves = 0;
 
     for (let i = 0; i < cards.length; i++) {
-            $($deck).append('<li class="card"><i class="' + cards[i] + '"></i></li>');
-    }
-    newBoard();
-}
-
-
-$("cards").click(function() {
-    if ((count < 2) && ($(this).hasClass("show")) === false) {
-
-        count++;
-        showCard();
-        matchCard();
-        alert(count);
+        $deck.append('<li class="card"><i class="' + cards[i] + '"></i></li>');
     }
 
-}, function showCard() {
-    $(this).addClass("show open");
-}, function matchCard() {
-    $(this).addClass("match");
-});
+};
 
+function setRating(moves) {
+    let rating = 3;
+    if (moves > threeStars && moves < twoStars) {
+        $rating.eq(2).removeClass("fa-star").addClass("fa-star-o");
+        rating = 2;
+    } else if (move > twoStars && move < oneStars) {
+        $rating.eq(1).removeClass("fa-star").addClass("fa-star-o");
+        rating = 1;
+    } else if (move > oneStars) {
+        $rating.eq(0).removeClass("fa-star").addClass("fa-star-o");
+        rating = 0;
+    }
+
+    return { scrore: rating };
+};
+
+let cardClickListener = function() {
+
+    $deck.find('.card:not(".match, .open")').bind('click', function() {
+        if ($('.show').length > 1) {
+            return true;
+        }
+        let $this = $(this);
+        let card = $this.context.innerHTML;
+
+        $this.addClass('open show');
+        openedCards.push(card);
+
+        if (openedCards.length > 1) {
+            if (card.length === openedCards[0]) {
+                $deck.find('.open').addClass('match animated infinite rubberBand');
+                setTimeout(function() {
+                    $deck.find('.match').removeClass('open show animated infinite rubberBand');
+                }, delay);
+                match++;
+            } else {
+                $deck.find('.open').addClass('notmatch animated infinite wobble');
+                setTimeout(function() {
+                    $deck.find('.open').removeClass('animated infinite wobble');
+                }, delay / 1.5);
+            }
+            setTImeout(function() {
+
+                $deck.find('.open').removeClass('open show notmatch animated infinite wobble');
+            }, delay);
+
+        }
+
+        openedCards = [];
+        moves++;
+        setRating(moves);
+        $moveNum.html(moves);
+
+        if (amountOfCards === match) {
+            setRating(moves);
+            var score = setRating(moves).score;
+            setTimeout(function() {
+                endGame(moves, score);
+            }, 500);
+        }
+    });
+};
+
+newBoard();
 
 
 
