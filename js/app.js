@@ -27,9 +27,9 @@ let cards = [
     match = 0,
     moves = 0,
     amountOfCards = cards.length / 2,
-    threeStars = amountOfCards + 2,
-    twoStars = amountOfCards + 6,
-    oneStar = amountOfCards + 10;
+    threeStars = amountOfCards - 4,
+    twoStars = amountOfCards - 2,
+    oneStar = amountOfCards;
 
 
 // Shuffle function
@@ -114,6 +114,8 @@ let cardClickListener = function() {
                 openedCards = [];
                 moves++;
                 setRating(moves);
+                $moves.html(moves);
+
             }
 
             if (amountOfCards === match) {
@@ -129,12 +131,13 @@ let cardClickListener = function() {
 
 };
 
-function restartGame() {
-	$restart.on("click", function(){
+	// Restart the game and reset the move counter
+	$restart.on("click", function() {
+		$moves.html(0);
 		newBoard();
+
 	});
-}
-restartGame();
+
 
 
 newBoard();
