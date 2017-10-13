@@ -129,6 +129,7 @@ const clickCard = () => {
 };
 
 
+// Function to occur when matched cards are found
 const foundMatch = () => {
     $deck.find('.open').addClass('match');
     setTimeout(function() {
@@ -141,6 +142,7 @@ const foundMatch = () => {
 };
 
 
+// Function to occur when there is no matched cards
 const notMatch = () => {
     $deck.find('.open').addClass('notmatch');
     setTimeout(function() {
@@ -152,6 +154,7 @@ const notMatch = () => {
 };
 
 
+// Function to occur when the game is over
 const gameOver = () => {
     clearInterval(timer);
 
