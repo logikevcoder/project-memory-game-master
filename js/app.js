@@ -11,12 +11,6 @@ let symbols = ['bicycle', 'bicycle', 'leaf', 'leaf', 'cube', 'cube', 'anchor', '
     timer;
 
 
-$('#winModal').show();
-$(".modal, .close").click(function() {
-    $('#winModal').hide();
-});
-
-
 const gameTimer = () => {
     let startTime = new Date().getTime();
 
@@ -48,7 +42,7 @@ const boardInit = () => {
     match = 0;
     moves = 0;
     $moveNum.text('0');
-    
+
     for (let i = 0; i < cardImages.length; i++) {
         $deck.append($('<li class="card"><i class="fa fa-' + cardImages[i] + '"></i></li>'));
     }
@@ -161,14 +155,22 @@ const notMatch = () => {
 const gameOver = () => {
     clearInterval(timer);
 
-    setTimeout(function (){
+    setTimeout(function() {
         $('#winModal').show();
     }, 500);
 };
 
- $('.modal-content').click(function(event) {
+
+$('#winModal').hide();
+// Allow user to close modal by clicking off modal box
+$(".modal, .close").click(function() {
+    $('#winModal').hide();
+});
+
+
+$('.modal-content').click(function(event) {
     event.stopPropagation();
-  });
+});
 
 
 // Function to reset the board
@@ -181,4 +183,3 @@ $restart.bind('click', () => {
 });
 
 boardInit();
-
