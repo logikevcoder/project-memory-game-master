@@ -1,20 +1,15 @@
 # Memory Game Project
 
-## Table of Contents
 
-* [Instructions](#instructions)
-* [Contributing](#contributing)
+### Features
 
-## Instructions
+- Player can select any card on the deck
+- Game starts with 3 stars and drops down to 1 the more clicks added
+- A dynamic timer that stars when user starts to click the cards
+- A popup modal that appears when the user has won the game
 
-The starter project has some HTML and CSS styling to display a static version of the Memory Game project. You'll need to convert this project from a static project to an interactive one. This will require modifying the HTML and CSS files, but primarily the JavaScript file.
-
-To get started, open `js/app.js` and start building out the app's functionality
-
-For specific, detailed instructions, look at the project instructions in the [Udacity Classroom](https://classroom.udacity.com/me).
-
-## Contributing
-
-This repository is the starter code for _all_ Udacity students. Therefore, we most likely will not accept pull requests.
-
-For details, check out [CONTRIBUTING.md](CONTRIBUTING.md).
+ ## Resources used to create the game:
+ 
+ ### Array shuffle:
+ 
+ - <http://stackoverflow.com/questions/2450954/how-to-randomize-shuffle-a-javascript-array>
