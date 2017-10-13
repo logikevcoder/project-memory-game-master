@@ -17,7 +17,8 @@ body {
 }
 
 body {
-    background: #ffffff url('../image/geometry2.png'); /* Background pattern from Subtle Patterns */
+    background: #ffffff url('../image/geometry2.png');
+    /* Background pattern from Subtle Patterns */
     font-family: 'Coda', cursive;
 }
 
@@ -33,6 +34,8 @@ h1 {
     font-weight: 300;
 }
 
+
+
 /*
  * Styles for the deck of cards
  */
@@ -40,15 +43,15 @@ h1 {
 .deck {
     width: 660px;
     min-height: 680px;
-     background: linear-gradient(160deg, #02ccba 0%, #aa7ecd 100%);
-     padding: 32px;
-     border-radius: 10px;
-     box-shadow: 12px 15px 20px 0 rgba(46, 61, 73, 0.5);
-     display: flex;
-     flex-wrap: wrap;
-     justify-content: space-between;
+    background: linear-gradient(160deg, #02ccba 0%, #aa7ecd 100%);
+    padding: 32px;
+    border-radius: 10px;
+    box-shadow: 12px 15px 20px 0 rgba(46, 61, 73, 0.5);
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
     align-items: center;
-     margin: 0 0 3em;
+    margin: 0 0 3em;
 }
 
 .deck .card {
@@ -81,14 +84,15 @@ h1 {
     font-size: 33px;
 }
 
+
+
 /*
  * Styles for the Score Panel
  */
 
 .score-panel {
     text-align: left;
-    width: 245px;
-    margin-bottom: 10px;
+    width: 30%;
     margin-right: 0;
     float: left;
 }
@@ -100,23 +104,41 @@ h1 {
     margin: 0 5px 0 0;
 }
 
+
+.top-bar {
+    width: 660px;
+    display: inherit;
+}
+
 .score-panel .stars li {
     list-style: none;
     display: inline-block;
 }
 
+.stars li {
+    list-style: none;
+    display: inline-block;
+    margin: 0 5px 0 0;
+}
+
 .score-panel .restart {
-    float: right;
+    width: 30%;
     cursor: pointer;
 }
 
 .restart {
-    margin-left: 10px;
+   
+    width: 30%;
+    text-align: center;
 }
 
+
 .timers {
-    width: 125px; 
-    float: right;
+    width: 125px;
+    width: 30%;
+    text-align: center;
+    margin-right: 40px;
+    margin-left: 50px;
 }
 
 .timers .timer {
@@ -131,18 +153,113 @@ h1 {
     display: inline-block;
 }
 
-.timerDiv {
-    max-width: 690px; width: 100%; margin: 0 auto;
-}
-
-.leftdiv {
-    float: left;
-}
-
-.clear {
-    clear: both;
-}
 
 .font-color {
-  color: white;
+    color: white;
+}
+
+.counter,
+.timer,
+.rating {
+    width: 33%;
+    text-align: center;
+}
+
+.info {
+    color: #3c5aa6;
+    letter-spacing: 4px;
+    font: 22px/1.25 Helvetica, Arial, Sans-Serif;
+    display: block;
+}
+
+.data {
+    letter-spacing: normal;
+    font: 700 32px/1.25 Helvetica, Arial, Sans-Serif;
+}
+
+
+/* The Modal (background) */
+
+.modal {
+    display: none;
+    /* Hidden by default */
+    position: fixed;
+    /* Stay in place */
+    z-index: 1;
+    /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%;
+    /* Full width */
+    height: 100%;
+    /* Full height */
+    overflow: auto;
+    /* Enable scroll if needed */
+    background-color: rgb(0, 0, 0);
+    /* Fallback color */
+    background-color: rgba(0, 0, 0, 0.4);
+    /* Black w/ opacity */
+}
+
+.modal-content {
+    position: relative;
+    background-color: #fff;
+    -webkit-border-radius: 30px;
+    -moz-border-radius: 30px;
+    border-radius: 30px;
+    display: flex;
+    text-align: center;
+    flex-wrap: wrap;
+    margin: auto;
+    padding: 20px;
+    width: 80%;
+    height: 50%;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    -webkit-animation-name: animatetop;
+    -webkit-animation-duration: 0.4s;
+    animation-name: animatetop;
+    animation-duration: 0.4s
+}
+
+
+/* The Close Button */
+
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.modal-data {
+    float: left;
+    text-align: center;
+    width: 33%;
+}
+
+.play-again {
+    width: 33%;
+}
+
+.win-title {
+    font: 40px Helvetica, Arial, Sans-Serif;
+    color: #3c5aa6;
+    margin: 10px;
+    text-align: center;
+    text-shadow: ;
+    letter-spacing: 6px;
+    -webkit-text-stroke: 2px #3c5aa6;
+    width: 100%;
+}
+
+.win-text {
+    font: italic 18px/24px Helvetica, Arial, Sans-Serif;
+    text-align: center;
 }
