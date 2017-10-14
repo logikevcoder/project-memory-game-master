@@ -42,13 +42,31 @@ const boardInit = () => {
     match = 0;
     moves = 0;
     $moveNum.text('0');
-
+    $ratingStars.removeClass('fa-star-o').addClass('fa-star');
     for (let i = 0; i < cardImages.length; i++) {
         $deck.append($('<li class="card"><i class="fa fa-' + cardImages[i] + '"></i></li>'));
     }
 
     clickCard();
     $(".clock").text("0:00");
+
+};
+
+
+// Create the rating function to change star ratings from 1-3
+const setRating = () => {
+    let rating = 3;
+    if (moves > 5 && moves < 10) {
+        $ratingStars.eq(2).removeClass('fa-star').addClass('fa-star-o');
+        rating = 2;
+    } else if (moves >= 10 && moves <= 15) {
+        $ratingStars.eq(1).removeClass('fa-star').addClass('fa-star-o');
+        rating = 1;
+    } else if (moves > 15) {
+        $ratingStars.eq(0).removeClass('fa-star').addClass('fa-star-o');
+        rating = 0;
+    }
+    return { score: rating };
 
 };
 
@@ -67,24 +85,6 @@ const shuffle = (array) => {
     return array;
 };
 
-
-// Create the rating function to change star ratings from 1-3
-const rating = (moves) => {
-    let score = 3;
-    if (moves <= 6) {
-        $ratingStars.eq(3).removeClass('fa-star').addClass('fa-star-o');
-        score = 3;
-    } else if (moves > 6 && moves <= 10) {
-        $ratingStars.eq(2).removeClass('fa-star').addClass('fa-star-o');
-        score = 2;
-    } else if (moves > 10) {
-        $ratingStars.eq(1).removeClass('fa-star').addClass('fa-star-o');
-        score = 1;
-    }
-
-    return { score };
-
-};
 
 
 //  Click event function to search for matched cards and modify them
@@ -112,15 +112,19 @@ const clickCard = () => {
             }
 
             openedCards = [];
+
+            // Update move count
             moves++;
-            rating(moves);
             $moveNum.html(moves);
+
+
+            setRating();
+
         }
 
-
+        
         if (match === 8) {
-            rating(moves);
-            let score = rating(moves).score;
+            let score = setRating().score;
             setTimeout(function() {
 
             });
@@ -137,6 +141,7 @@ const foundMatch = () => {
     }, 800);
     match++;
     if (match === 8) {
+        setRating(moves);
         gameOver();
     }
 };
@@ -155,8 +160,9 @@ const notMatch = () => {
 
 
 // Function to occur when the game is over
-const gameOver = () => {
+const gameOver = (moves, score) => {
     clearInterval(timer);
+    var score = setRating(moves).score;
 
     setTimeout(function() {
         $('#winModal').show();
@@ -167,6 +173,7 @@ const gameOver = () => {
 $('#winModal').hide();
 // Allow user to close modal by clicking off modal box
 $(".modal, .close").click(function() {
+    $score.text()
     $('#winModal').hide();
 });
 
@@ -178,11 +185,12 @@ $('.modal-content').click(function(event) {
 
 // Function to reset the board
 $restart.bind('click', () => {
-    clicks = 0;
+
     clearInterval(timer);
     $('#winModal').hide();
     $deck.empty();
     boardInit();
+    
 });
 
 boardInit();
