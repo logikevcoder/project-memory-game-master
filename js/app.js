@@ -11,6 +11,7 @@ let symbols = ['bicycle', 'bicycle', 'leaf', 'leaf', 'cube', 'cube', 'anchor', '
     timer;
 
 
+// Create function to set up the timer
 const gameTimer = () => {
     let startTime = new Date().getTime();
 
@@ -119,10 +120,9 @@ const clickCard = () => {
 
 
             setRating();
-
         }
 
-        
+
         if (match === 8) {
             let score = setRating().score;
             setTimeout(function() {
@@ -190,7 +190,7 @@ $restart.bind('click', () => {
     $('#winModal').hide();
     $deck.empty();
     boardInit();
-    
+
 });
 
 boardInit();
