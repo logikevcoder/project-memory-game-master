@@ -10,32 +10,6 @@ let symbols = ['bicycle', 'bicycle', 'leaf', 'leaf', 'cube', 'cube', 'anchor', '
     $restart = $('.restart'),
     timer;
 
-
-// Create function to set up the timer
-const gameTimer = () => {
-    let startTime = new Date().getTime();
-
-    timer = setInterval(() => {
-
-        let now = new Date().getTime();
-
-        let elapsed = now - startTime;
-
-        let minutes = Math.floor((elapsed % (1000 * 60 * 60)) / (1000 * 60));
-        let seconds = Math.floor((elapsed % (1000 * 60)) / 1000);
-
-        if (seconds < 10) {
-            seconds = "0" + seconds;
-        }
-
-        let currentTime = minutes + ':' + seconds;
-
-        $(".clock").text(currentTime);
-    }, 800);
-
-};
-
-
 // Load the game on to the HTML page
 const boardInit = () => {
     let cardImages = shuffle(symbols);
@@ -49,7 +23,7 @@ const boardInit = () => {
     }
 
     clickCard();
-    $(".clock").text("0:00");
+    $(".clock").text("0:00");    
 
 };
 
@@ -90,16 +64,18 @@ const shuffle = (array) => {
 
 //  Click event function to search for matched cards and modify them
 const clickCard = () => {
-    // Search the ul for cards that do not contain match or open classes
     $deck.find('.card:not(".match, .open")').bind('click', function() {
         clicks++;
         clicks == 1 ? gameTimer() : '';
+        
         // only allow 2 cards with the class .show to be visible at once
         if ($(".show").length > 1) { return true; };
         let $this = $(this),
             card = $this.find('i').prop('class');
+        
         // Check if the player has clicked the same card
         if ($this.hasClass('open')) { return false; };
+        
         // Add classes open and show to the clicked card and push to array
         $this.addClass('open show');
         openedCards.push(card);
@@ -118,11 +94,9 @@ const clickCard = () => {
             moves++;
             $moveNum.html(moves);
 
-
             setRating();
         }
-
-
+			
         if (match === 8) {
             let score = setRating().score;
             setTimeout(function() {
@@ -159,6 +133,31 @@ const notMatch = () => {
 };
 
 
+// Create function to set up the timer
+const gameTimer = () => {
+    let startTime = new Date().getTime(); // get the current time when user clicked the first card
+
+    timer = setInterval(() => {
+
+        let current_time = new Date().getTime();
+        let current_time_played = current_time - startTime;
+        let mins = Math.floor((current_time_played % (1000 * 60 * 60)) / (1000 * 60));
+        let secs = Math.floor((current_time_played % (1000 * 60)) / 1000);
+
+
+        time_value =  mins + ' minutes ' + secs + ' seconds '; // This is to display in the stats model
+
+        if (secs < 10) {
+            secs = '0' + secs;
+        }
+
+        current_time_played = mins + ':' + secs;
+
+        $(".clock").text(current_time_played);
+    }, 500);
+
+};
+
 // Function to occur when the game is over
 const gameOver = (moves, score) => {
     clearInterval(timer);
@@ -170,9 +169,9 @@ const gameOver = (moves, score) => {
 };
 
 
-$('#winModal').hide();
+$('#winModal').show();
 // Allow user to close modal by clicking off modal box
-$(".modal, .close").click(function() {
+$(".close").click(function() {
     $score.text()
     $('#winModal').hide();
 });
@@ -189,6 +188,7 @@ $restart.bind('click', () => {
     clearInterval(timer);
     $('#winModal').hide();
     $deck.empty();
+    
     boardInit();
 
 });
