@@ -1,5 +1,8 @@
 # Memory Game Project
 
+### Play the game
+ https://logikevcoder.github.io/project-memory-game-master/
+
 
 ### Features
 
